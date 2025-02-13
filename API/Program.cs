@@ -1,3 +1,5 @@
+using Application.Activities.Queries;
+using Application.Core;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -14,8 +16,13 @@ builder.Services.AddDbContext<AppDbContext>(opt => {
 
 builder.Services.AddCors();
 
+builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetACtivityList.Handler>()); // Add the MediatR service to the container
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); // Add the AutoMapper service to the container
 
 var app = builder.Build();
+
+
 
 
 

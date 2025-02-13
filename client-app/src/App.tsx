@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-      <Typography className='app' style={{color : 'blueviolet'}}>Reactivities</Typography>
+      <Typography variant="h3">Reactivities</Typography>
       <List>
         {activities.map((activity) => (
           <ListItem key={activity.id}> 
