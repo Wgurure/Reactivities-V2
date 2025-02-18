@@ -11,7 +11,7 @@ export default function ActivityList() {
      } else {
 
      return (
-          <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
+          <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}} mr={3} ml={3}>
                {activities.map(activity => (
 
                     <ActivityCard key={activity.id} 

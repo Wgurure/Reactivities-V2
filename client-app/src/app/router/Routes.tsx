@@ -3,7 +3,7 @@ import App from "../layout/App";
 import HomePage from "../../features/home/HomePage";
 import ActivityForm from "../../features/details/form/ActivityForm";
 import ActivitesDashboard from "../../features/activities/dashboard/ActivitesDashboard";
-import ActivityDetails from "../../features/details/ActivityDetails";
+import ActivityDetails from "../../features/details/ActivityDetailsPage";
 
 export const router = createBrowserRouter([
     {
