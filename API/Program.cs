@@ -1,5 +1,8 @@
+using API.Middleware;
 using Application.Activities.Queries;
+using Application.Activities.Validators;
 using Application.Core;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -16,9 +19,14 @@ builder.Services.AddDbContext<AppDbContext>(opt => {
 
 builder.Services.AddCors();
 
-builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<GetACtivityList.Handler>()); // Add the MediatR service to the container
+builder.Services.AddMediatR(x => {
+    x.RegisterServicesFromAssemblyContaining<GetACtivityList.Handler>(); //Configuring Mediator to use the handlers when processing requests
+    x.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+}); // Add the MediatR service to the container
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); // Add the AutoMapper service to the container
+builder.Services.AddValidatorsFromAssemblyContaining<CreateActivityValidator>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 var app = builder.Build();
 
@@ -29,7 +37,7 @@ var app = builder.Build();
 
 /******************************************** */
 // Configure the HTTP request pipeline.
-
+app.UseMiddleware<ExceptionMiddleware>();
 
 // allows all the http requests coming from our front end to be accepted by the backend without cors blocking it 
 app.UseCors(x => x
