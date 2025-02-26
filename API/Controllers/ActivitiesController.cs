@@ -7,6 +7,7 @@ using Application.Activities.DTO;
 using Application.Activities.Queries;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -14,7 +15,8 @@ using Persistence;
 namespace API.Controllers
 {
     public class ActivitiesController: BaseApiController
-    {
+    {   
+        [AllowAnonymous] 
         [HttpGet]
         /*Returning a HTTP response in the form or a list that contains activity objects using an HTTP get method */
         public async Task<ActionResult<List<Activity>>> GetActivities()
@@ -23,6 +25,7 @@ namespace API.Controllers
             
         }
 
+        [AllowAnonymous]    
         [HttpGet("{id}")]
 
         public async Task<ActionResult<Activity>> GetActivityDetail(string id)
