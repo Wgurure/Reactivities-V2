@@ -21,7 +21,7 @@ namespace API.Controllers
 
             if (!result.IsSuccess && result.Code == 404) return NotFound();
 
-            if(result.IsSuccess && result.Value != null ) return Ok(result.Value);
+            if(result.IsSuccess && result.Value != null ) return Ok(result.Value); // Returns the result as a JSON object
 
             return BadRequest(result.Error); 
             

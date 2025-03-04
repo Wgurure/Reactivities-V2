@@ -19,7 +19,7 @@ namespace API.Controllers
         [AllowAnonymous] 
         [HttpGet]
         /*Returning a HTTP response in the form or a list that contains activity objects using an HTTP get method */
-        public async Task<ActionResult<List<Activity>>> GetActivities()
+        public async Task<ActionResult<List<ActivityDto>>> GetActivities()
         {
             return await Mediator.Send(new GetACtivityList.Query());
             
@@ -49,24 +49,27 @@ namespace API.Controllers
         {
            return HandleResult(await Mediator.Send(new CreateActivity.Command{ActivityDto = activityDto}));
         }
-
-        [HttpPut/*("{id}")*/]
-
-        public async Task<ActionResult> EditActivity(EditActivityDto activity/*, string id*/)
-        {
-           /* activity.Id = id;*/
-            // Ask the mediator to send a request to edit the activity that was passed in the request body
-           return HandleResult(await Mediator.Send(new EditActivity.Command{ActivityDto = activity}));
-          
-        }
-
+    [HttpPut("{id}")]
+    [Authorize(Policy = "IsActivityHost")]
+    public async Task<ActionResult> EditActivity(string id, Activity activity)
+    {
+        activity.Id = id;
+        return HandleResult(await Mediator.Send(new EditActivity.Command { Activity = activity }));
+    }
         [HttpDelete("{id}")]
+        [Authorize(Policy = "IsActivityHost")]
 
         public async Task<ActionResult> DeleteActivity(string id )
         {
             // Ask the mediator to send a request to delete the activity that was passed in the request body
             return HandleResult(await Mediator.Send(new DeleteActivity.Command{Id = id}));
             
+        }
+
+        [HttpPost("{id}/attend")]
+        public async Task<ActionResult> Attend(string id)
+        {
+            return HandleResult(await Mediator.Send(new UpdateAttendance.Command { Id = id }));
         }
     }
 }

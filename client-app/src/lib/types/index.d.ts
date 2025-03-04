@@ -1,4 +1,4 @@
-type Activity = {
+export type Activity = {
     id: string
     title: string
     date: Date
@@ -11,6 +11,13 @@ type Activity = {
     longitude: number
   }
   
+  export type User ={
+    id: string
+    email: string
+    displayName: string 
+    imageUrl? : string 
+  }
+
   export type LocationIQSuggestion = {
     place_id: string
     osm_id: string
