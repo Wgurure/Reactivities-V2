@@ -11,6 +11,7 @@ import ServerError from "../../features/errors/ServerError";
 import LoginForm from "../../features/Account/LoginForm";
 import RequireAuth from "./RequireAuth";
 import RegisterForm from "../../features/Account/RegisterForm";
+import ProfilePage from "../../features/profiles/ProfilePage";
 
 export const router = createBrowserRouter([
     {// The default path for when the user has entered the page and the react element that should be rendered when that route is selected 
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
                 {path: 'activities/:id', element: <ActivityDetails/>},
                 {path: 'createActivity', element: <ActivityForm key='create'/>},
                 {path: 'manage/:id', element: <ActivityForm />},
+                {path: 'profiles/:id', element: <ProfilePage />},
             ]},
             {path: '', element: <HomePage/>},
             
