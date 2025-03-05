@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useMemo } from "react";
 import { Photo, Profile, User } from "../types";
 import agent from "../API/Agent";
+import { EditProfileSchema } from "../schemas/editProfileSchema";
 
 export const useProfile = (id?: string) => {
     const queryClient = useQueryClient();
@@ -92,6 +93,29 @@ export const useProfile = (id?: string) => {
         }
     })
 
+    const updateProfile = useMutation({
+        mutationFn: async (profile: EditProfileSchema) => {
+            await agent.put('/profiles', profile )
+        },
+        onSuccess: (_, profile) => {
+            queryClient.setQueryData(['profile', id], (data: Profile) => {
+                if (!data) return data;
+                return {
+                    ...data,
+                    displayName: profile.displayName,
+                    bio: profile.bio
+                }
+            });
+            queryClient.setQueryData(['user'], (userData: User) => {
+                if (!userData) return userData;
+                return {
+                    ...userData,
+                    displayName: profile.displayName
+                }
+            });
+        }
+    })
+
     // UseMemo => memorises the value of the isCurrentUser variable to avoid unnecessary API calls
     const isCurrentUser = useMemo(() => {
 
@@ -107,6 +131,7 @@ export const useProfile = (id?: string) => {
         isCurrentUser,
         uploadPhoto,
         setMainPhoto,
-        deletePhoto
+        deletePhoto,
+        updateProfile
     }
 }
