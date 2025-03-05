@@ -37,6 +37,8 @@ namespace Application.Core
             .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.User.ImageUrl))
             .ForMember(d => d.Id, o => o.MapFrom(s => s.User.Id));
 
+            CreateMap<User, UserProfile>();
+
         }
     
     }
