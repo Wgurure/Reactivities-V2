@@ -36,6 +36,16 @@ export type Activity = {
     imageUrl? : string 
   }
 
+  type ChatComment = {
+    id: string
+    createdAt: Date
+    body: string
+    userId: string
+    displayName: string
+    imageUrl?: string
+  }
+  
+
   export type LocationIQSuggestion = {
     place_id: string
     osm_id: string

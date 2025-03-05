@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Application.Activities.DTO;
+using Application.Activities.DTOs;
 using Application.Profiles.DTOs;
 using AutoMapper;
 using Domain;
@@ -38,6 +39,10 @@ namespace Application.Core
             .ForMember(d => d.Id, o => o.MapFrom(s => s.User.Id));
 
             CreateMap<User, UserProfile>();
+            CreateMap<Comment, CommentDto>()
+            .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.User.DisplayName))
+            .ForMember(d => d.UserId, o => o.MapFrom(s => s.User.Id))
+            .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.User.ImageUrl));
 
         }
     
